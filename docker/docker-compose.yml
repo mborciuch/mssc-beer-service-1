@@ -1,0 +1,21 @@
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - "./mysql-init1.sql:/docker-entrypoint-initdb.d/1.sql"
+      - "./mysql-init2.sql:/docker-entrypoint-initdb.d/2.sql"
+      - "./mysql-init3.sql:/docker-entrypoint-initdb.d/3.sql"
+    ports:
+      - "3306:3306"
+  queue:
+    image: vromero/activemq-artemis
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+volumes:
+  mysql-data:
+    name: mysql-data
+
